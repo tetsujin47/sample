@@ -28,13 +28,15 @@ allowed_origins = os.getenv("FRONTEND_ORIGINS", "*")
 origins: List[str]
 if allowed_origins == "*":
     origins = ["*"]
+    allow_credentials = False
 else:
     origins = [origin.strip() for origin in allowed_origins.split(",") if origin.strip()]
+    allow_credentials = True
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_credentials=True,
+    allow_credentials=allow_credentials,
     allow_methods=["*"],
     allow_headers=["*"],
 )
